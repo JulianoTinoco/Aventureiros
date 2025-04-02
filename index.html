@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventureiros da Bíblia - Quiz Interativo</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Adicione uma fonte lúdica do Google Fonts (opcional) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== Tela Inicial (Seleção de Quiz) ===== -->
+        <header class="header">
+            <h1>Aventureiros da Bíblia</h1>
+            <p>Teste seus conhecimentos sobre as histórias!</p>
+            </header>
+
+        <main id="home-screen" class="screen active">
+            <h2>Escolha um Capítulo para Começar:</h2>
+            <div class="quiz-selection">
+                <!-- Botões serão gerados pelo JavaScript -->
+            </div>
+            <img src="site/images/cover-placeholder.png" alt="Capa Aventureiros da Bíblia" class="book-cover-small">
+        </main>
+
+        <!-- ===== Tela do Vídeo (Modal) ===== -->
+        <div id="video-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Assista ao vídeo do Capítulo <span id="video-chapter-number"></span></h3>
+                <div id="youtube-player"></div>
+                <button id="start-quiz-button" class="btn">Começar Quiz!</button>
+            </div>
+        </div>
+
+        <!-- ===== Tela do Quiz ===== -->
+        <section id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <h2 id="quiz-title">Quiz Capítulo X</h2>
+                <div class="quiz-info">
+                    <span id="timer">Tempo: 60s</span>
+                    <span id="score">Pontos: 0</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                 <span id="question-counter">Pergunta 1/10</span>
+            </div>
+
+            <div id="question-container">
+                <p id="question-text">Carregando pergunta...</p>
+                <div id="options-container" class="options-container">
+                    <!-- Opções serão geradas pelo JavaScript -->
+                </div>
+            </div>
+
+            <div id="feedback" class="feedback"></div>
+        </section>
+
+        <!-- ===== Tela de Resultados ===== -->
+        <section id="results-screen" class="screen">
+            <h2>Quiz Concluído!</h2>
+            <p>Capítulo: <span id="result-chapter-title"></span></p>
+            <p>Sua Pontuação Final: <strong id="final-score">0</strong></p>
+            <p>Sua Melhor Pontuação neste Capítulo: <strong id="high-score">0</strong></p>
+            <div class="result-actions">
+                <button id="try-again-button" class="btn">Tentar Novamente</button>
+                <button id="back-home-button" class="btn">Escolher Outro Capítulo</button>
+            </div>
+        </section>
+
+
+        <footer class="footer">
+             <a href="[LINK_COMPRA]" target="_blank" class="btn btn-buy">Comprar Livro Agora!</a>
+             <p>&copy; 2024 Aventureiros da Bíblia Quiz. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+
+    <!-- Biblioteca do YouTube IFrame Player API (Opcional, mas recomendado para controle) -->
+    <!-- <script src="https://www.youtube.com/iframe_api"></script> -->
+    <script src="quiz.js"></script>
+</body>
+</html>

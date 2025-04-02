@@ -1,0 +1,415 @@
+/* === Variáveis de Cor (Ajuste com base na capa do livro) === */
+:root {
+    --primary-color: #3498db; /* Azul vibrante */
+    --secondary-color: #f1c40f; /* Amarelo */
+    --accent-color: #e74c3c; /* Vermelho/Laranja */
+    --background-color: #ecf0f1; /* Fundo claro */
+    --text-color: #34495e; /* Texto escuro */
+    --correct-color: #2ecc71; /* Verde */
+    --incorrect-color: #e74c3c; /* Vermelho */
+    --white: #ffffff;
+    --card-background: var(--white);
+    --font-family: 'Baloo 2', cursive; /* Fonte lúdica */
+}
+
+/* === Reset Básico e Estilos Gerais === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha ao topo */
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Gradiente divertido */
+}
+
+.container {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    overflow: hidden; /* Para controlar transições */
+    position: relative;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+/* === Botões === */
+.btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px; /* Botões arredondados */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #2980b9; /* Tom mais escuro do primário */
+    transform: translateY(-2px); /* Efeito de levantar */
+}
+
+.btn:active {
+     transform: translateY(0px);
+}
+
+.btn-buy {
+    background-color: var(--accent-color);
+}
+
+.btn-buy:hover {
+    background-color: #c0392b; /* Tom mais escuro do accent */
+}
+
+/* === Header e Footer === */
+.header, .footer {
+    padding: 15px 0;
+    border-bottom: 2px dashed var(--secondary-color); /* Linha divertida */
+    margin-bottom: 20px;
+}
+.footer {
+    border-bottom: none;
+    border-top: 2px dashed var(--secondary-color);
+    margin-top: 30px;
+    padding-top: 20px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+.footer p {
+    margin-top: 10px;
+}
+
+/* === Telas (Controle de Visibilidade e Transição) === */
+.screen {
+    display: none; /* Começa escondido */
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    position: absolute; /* Para transição suave */
+    top: 150px; /* Ajustar conforme necessário */
+    left: 0;
+    width: 100%;
+    padding: 0 30px; /* Compensar padding do container */
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    position: relative; /* Ocupa espaço normal quando ativo */
+    top: auto;
+    left: auto;
+}
+/* Ajuste para a primeira tela não vir da direita */
+#home-screen {
+    transform: translateX(0);
+}
+#home-screen.active ~ .screen { /* Esconde outras telas quando home está ativa */
+   display: none;
+}
+
+
+/* === Tela Inicial - Seleção de Quiz === */
+.quiz-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.quiz-selection .btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 15px 10px;
+    font-size: 0.95em;
+    border: 2px solid transparent;
+}
+
+.quiz-selection .btn:hover {
+    background-color: #f39c12; /* Amarelo mais escuro */
+    border-color: var(--primary-color);
+    transform: scale(1.05); /* Efeito de zoom */
+}
+
+.book-cover-small {
+    max-width: 150px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* === Modal do Vídeo === */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica sobre todo o conteúdo */
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilita scroll se necessário */
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escurecido */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex; /* Usa flexbox para centralizar quando ativo */
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+    animation: slideDown 0.5s ease-out;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-color);
+}
+
+#youtube-player {
+    margin: 20px 0;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+#youtube-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* === Tela do Quiz === */
+.quiz-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95em;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 15px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 0%; /* Controlado por JS */
+    height: 100%;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out; /* Animação da barra */
+}
+#question-counter {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    display: block; /* Para ficar abaixo da barra */
+    margin-top: 5px;
+}
+
+#question-text {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    min-height: 50px; /* Evitar saltos de layout */
+    font-weight: bold;
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Uma coluna por padrão */
+    gap: 10px;
+}
+
+/* Em telas maiores, 2 colunas */
+@media (min-width: 600px) {
+    .options-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.option-btn {
+    background-color: var(--card-background);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease, border-color 0.3s ease;
+    font-size: 1em;
+}
+
+.option-btn:hover:not(.disabled):not(.correct):not(.incorrect) {
+    background-color: #eef6fc; /* Fundo levemente azulado no hover */
+    transform: translateX(5px);
+}
+
+.option-btn.correct {
+    background-color: var(--correct-color);
+    border-color: var(--correct-color);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.option-btn.incorrect {
+    background-color: var(--incorrect-color);
+    border-color: var(--incorrect-color);
+    color: var(--white);
+    font-weight: bold;
+}
+
+/* Estilo para desabilitar botões após a resposta */
+.option-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.feedback {
+    margin-top: 20px;
+    font-weight: bold;
+    min-height: 25px; /* Evitar saltos */
+}
+
+.feedback.correct {
+    color: var(--correct-color);
+}
+
+.feedback.incorrect {
+    color: var(--incorrect-color);
+}
+
+
+/* === Tela de Resultados === */
+#results-screen h2 {
+    color: var(--accent-color);
+}
+
+#results-screen p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+#results-screen strong {
+    font-size: 1.3em;
+    color: var(--primary-color);
+}
+
+.result-actions {
+    margin-top: 30px;
+}
+
+/* === Responsividade Básica === */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .quiz-selection {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    #question-text {
+        font-size: 1.1em;
+    }
+    .option-btn {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+     .options-container {
+        grid-template-columns: 1fr; /* Sempre uma coluna em telas pequenas */
+    }
+    .quiz-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .screen {
+       padding: 0 15px;
+    }
+
+}
